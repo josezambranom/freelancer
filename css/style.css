@@ -1,0 +1,263 @@
+/* son pseudoelementos que no existen en el código html*/
+:root {    /*Se almacena cualquier tipo de valores (Variables)*/
+    --blanco: #ffffff;
+    --oscuro: #212121;
+    --primario: #ffc107;
+    --secundario: #0097a7;
+    --gris: #757575;
+    --grisClaro: #dfe9f3;
+}
+
+/*** Globales ***/
+
+html {
+    font-size: 62.5%;    /*Truco para usar rem  HACK BOX MODEL*/
+    box-sizing: border-box;    /*Evita que el padding incremente el tamaño del box*/
+    scroll-snap-type: y mandatory; /*Configura el scrooll horizontalmente*/
+
+}
+/*Scroll Snap*/
+.servicios, .nav-principal,
+.formulario {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+/*El before y el after son pseudoelementos sirven para agg contenido que no exite en html*/
+*,*:before,*:after {
+    box-sizing: inherit;    /*Le aplica el box-sizing a todos los elementos*/
+}
+/*Así se va a adaptar para todos los dispositivos*/
+body {
+    font-size: 16px;    /*1rem = 10px*/
+    font-family: 'Krub', sans-serif;
+    /*Se utiliza para establecer un degradado de color en el fondo desde abajo hacia arriba*/
+    background-image: linear-gradient(to top, var(--grisClaro) 0%, var(--blanco) 100%);
+}
+.contenedor {
+    max-width: 120rem;
+    margin: 0 auto;
+}
+.boton{
+    background-color: var(--secundario);
+    color: var(--blanco);
+    padding: 1rem 3rem;
+    margin-top: 3rem;
+    font-size: 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: .5rem;
+    width: 80%;
+    text-align: center;
+    border: none;
+}
+@media (min-width: 480px){
+    .boton{
+        width: auto;
+    }
+}
+.boton:hover {
+    cursor: pointer;
+}
+.sombra{
+    /*Se usa una herramienta externa "box-shadow" para generar el css de la sombra*/
+    -webkit-box-shadow: 0px 5px 15px 0px rgba(117,115,117,0.5);/*Para Chrome ya no es necesario el uso del prefijo (Nav Anteriores)*/
+    -moz-box-shadow: 0px 5px 15px 0px rgba(117,115,117,0.5);/*Para Firefox ya no es necesario el uso del prefijo (Nav Anteriores)*/
+    box-shadow: 0px 5px 15px 0px rgba(117,115,117,0.5);
+    background-color: var(--blanco);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+/*** Tipografía ***/
+
+h1{
+    font-size: 3.8rem;
+}
+h2{
+    font-size: 2.8rem;
+}
+h3{
+    font-size: 1.8rem;
+}
+h1, h2, h3{
+    text-align: center;
+}
+
+/*** Títulos ***/
+
+.titulo span {
+    font-size: 2rem;
+}
+
+/*** Utilidades ***/
+.w-sm-100 {
+    width: 100%;
+}
+@media (min-width: 758px){
+    .w-sm-100 {
+        width: auto;
+    }
+}
+.flex {
+    display: flex;
+}
+.alinear-derecha {
+    justify-content: flex-end;
+}
+
+/***Navegación Principal***/
+
+.nav-bg {
+    background-color: var(--secundario);
+}
+.nav-principal {
+    /* CSS FLEX EL CONTENIDO CRECE AUTOMATICAMENTE Y SOLO HAY ACCESO A 1 SOLA DIMENSION (ROW O COLUMN) */
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 480px) {
+    /*Celulares 480px Tablets 768px Laptops 1140px TV-Monitor 1400px*/
+    .nav-principal {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+.nav-principal a {
+    display: block;
+    text-align: center;
+    color: var(--blanco);
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 700;    /*700=bold 400=normal*/
+    padding: 1rem;
+}
+.nav-principal a:hover {
+    background-color: var(--primario);
+    color: var(--oscuro);
+}
+
+/***Hero***/
+
+.hero {
+    background-image: url(../images/hero.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 450px;
+    position: relative;    /*El elemento padre siempre debe tener posicion relativa para que el hijo pueda ser fijo*/
+    margin-bottom: 2rem;
+}
+.content-hero {
+    position: absolute;
+    background-color: rgba(0, 0, 0, .5);    /*Sintaxis Anterior*/
+    background-color: rgb(0 0 0 / 50%);    /*Sintaxis Nueva*/
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;    /*Lo siguiente se cumple cuando la dirección es column*/
+    align-items: center;    /*Alinea Horizontalmente*/
+    justify-content: center;    /*Alinea Verticalmente*/
+}
+.content-hero h2,
+.content-hero p {
+    color:var(--blanco);
+}
+.content-hero .ubicacion{
+    display: flex;
+    align-items: flex-end;
+}
+
+/*** Servicios ***/
+
+/* CSS GRID EL CONTENIDO SE AGRUPA DENTRO DE UN AREA DEFINIDA Y EJERCE MAS CONTROL EN EL DISEÑO
+DEBIDO A QUE SE PUEDE TRABAJAR EN 2 DIMENSIONES AL MISMO TIEMPO (ROW Y COLUMN)*/
+@media (min-width: 768px){/*Se ubica en un mq para que en dispositivos pequeños se muestre como rows*/
+    .servicios{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /*Se define el tamaño de las columnas, se esta diviendo en fracciones el 100%*/
+        /*grid-template-rows: 200px 800px; Se define el tamaño de los rows "ancho" "altura"*/
+        column-gap: 5rem;/*Crea la separación de las columnas*/
+    }
+}
+.servicio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.servicio h3 {
+    color: var(--secundario);
+    font-weight: normal;
+}
+.servicio p {
+    line-height: 2;/*Interlineado*/
+    text-align: justify;
+}
+.servicio .iconos {
+    height: 10rem;
+    width: 10rem;
+    background-color: var(--primario);
+    border-radius: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/***Contacto***/
+
+.formulario {
+    background-color: var(--gris);
+    width: min(60rem, 100%); /*Nueva funcion de CSS "min" utiliza el valor mas pequeño compara los dos valores ahorra el uso de mq*/
+    margin: 0 auto; /*Se usa siempre y cuando su padre no tenga display: flex para centrar horizontalmente*/
+    padding: 2rem;
+    border-radius: 1rem;
+}
+.formulario fieldset {
+    border: none;
+}
+.formulario legend {
+    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--primario);
+}
+
+@media (min-width: 768px){
+    .contenedor-campos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto 20rem;
+        column-gap: 1rem;
+    }
+    .campo:nth-child(3),
+    .campo:nth-child(4) {
+        grid-column: 1 / 3;
+    }
+}
+.campo {
+    margin-bottom: 1rem;
+}
+.campo label {
+    color: var(--blanco);
+    font-weight: bold;
+    margin-bottom: .5rem;
+    display: block;
+}
+.campo textarea {
+    height: 20rem;
+
+}
+.input-text {
+    width: 100%;
+    border: none;
+    padding: 1.5rem;
+    border-radius: .5rem;
+}
+
+/***Footer***/
+
+.footer {
+    text-align: center;
+}
